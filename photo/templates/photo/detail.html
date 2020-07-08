@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}detail{% endblock title %}
+
+{% block content %}
+
+    <p><img src='{{photo.photo.url}}' style='width:100%;'></p>
+    <button type='button' class='btn btn-outline-primary btn-sm'>{{photo.author.username}}</button>
+    <p>{{photo.text|linebreaksbr}}</p>
+
+
+    <a href="{% url 'photo:delete' photo.id %}" class='btn btn-outline-danger btn-sm float-right'>삭제</a>
+
+    <a href="{% url 'photo:update' photo.id %}" class='btn btn-outline-success btn-sm float-right'>수정</a>
+
+
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}list{% endblock title %}
+
+{% block content %}
+
+{% for photo in photos %}
+    <button type='button' class='btn btn-xs btn-info'>{{photo.author.username}}</button>
+    <p><img src='{{photo.photo.url}}' style='width:100%;'></p>
+    <p>{{photo.text|linebreaksbr}}</p>
+    <p class='text-right'>
+        <a href="{% url 'photo:detail' photo.id %}" class='btn btn-xs btn-success'>댓글 달기</a>
+    </p>
+
+{% endfor %}
+
+{% endblock content %}
