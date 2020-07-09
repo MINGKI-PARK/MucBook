@@ -18,3 +18,19 @@ class Photo(models.Model):
     
     # def get_absolute_url(self):
     #     return reverse('photo:photo_detail', args=[str(self.id)])
+
+
+class Comment(models.Model):
+    '''
+    댓글 모델
+    '''
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    comment_text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    like = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.author.username+' / '+self.comment_text
+    

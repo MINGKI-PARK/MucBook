@@ -20,4 +20,11 @@ urlpatterns = [
     # 삭제인데
     path('<int:photo_id>/delete/', views.photoDelete, name='delete'),
     
+
+
+    # path('<int:photo_id>/detail/comment_create', views.commentCreate, name='commentcreate'),
+    
+    path('comment/<int:comment_id>/update/', views.commentUpdate, name='commentupdate'),
+
+    path('comment/<int:comment_id>/delete/', views. commentDelete, name='commentdelete'),
 ]
