@@ -22,7 +22,7 @@ urlpatterns = [
     
 
 
-    # path('<int:photo_id>/detail/comment_create', views.commentCreate, name='commentcreate'),
+    path('<int:photo_id>/comment/create/', views.commentCreate, name='commentcreate'),
     
     path('comment/<int:comment_id>/update/', views.commentUpdate, name='commentupdate'),
 

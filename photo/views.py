@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Photo, Comment
 from .forms import PhotoForm, CommentForm
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
@@ -27,14 +27,14 @@ def photoDetail(request, photo_id):
     '''
     photo = get_object_or_404(Photo, pk=photo_id)
 
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
+    # if request.method == 'POST':
+    #     comment_form = CommentForm(request.POST)
 
-        if comment_form.is_valid:
-            comment = comment_form.save(commit=False)
-            comment.author = request.user
-            comment.photo = photo
-            comment.save()
+    #     if comment_form.is_valid:
+    #         comment = comment_form.save(commit=False)
+    #         comment.author = request.user
+    #         comment.photo = photo
+    #         comment.save()
             
     comment_form = CommentForm()
     comments = photo.comment_set.all()
@@ -46,7 +46,7 @@ def photoDetail(request, photo_id):
     }
     return render(request, 'photo/detail.html', context)
 
-
+@login_required(login_url='accounts:login')
 def photoUpload(request):
     
     '''
@@ -82,8 +82,12 @@ def photoUpload(request):
 
 
 
-
+@login_required(login_url='accounts:login')
 def photoUpdate(request, photo_id):
+    '''
+    글 업데이트
+    '''
+
     photo = Photo.objects.get(pk=photo_id)
 
     if request.user != photo.author:
@@ -108,8 +112,11 @@ def photoUpdate(request, photo_id):
 
 
 # 삭제에에에에
-
+@login_required(login_url='accounts:login')
 def photoDelete(request, photo_id):
+    '''
+    글 삭제
+    '''
     photo = get_object_or_404(Photo, pk=photo_id)
     if request.user != photo.author:
         messages.error(request, '삭제 권한이 없습니다.')
@@ -119,32 +126,33 @@ def photoDelete(request, photo_id):
     return redirect('photo:index')
 
 
-# @login_required(login_url='accounts:login')
-# def commentCreate(request, photo_id):
-#     '''
-#     댓글 생성 뷰
-#     '''
-#     photo = get_object_or_404(Photo, pk-photo_id)
+@login_required(login_url='accounts:login')
+def commentCreate(request, photo_id):
+    '''
+    댓글 생성 뷰
+    '''
 
-#     if request.method == 'POST':
-#         form = CommentForm(request.POST)
+    form = CommentForm(request.POST)
+    photo = get_object_or_404(Photo, pk=photo_id)
 
-#         if form.is_valid():
-#             comment = form.save(commit=False)
-#             comment.author = request.user
-#             comment.photo = photo
-#             comment.save()
-#             return redirect('photo:detail', photo_id=photo.id)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.photo = photo
+        comment.save()
+        return redirect(reverse('photo:detail', args=(photo_id,)))
+    
+    else: #validation 에러
+        # form = CommentForm()
+        comments = photo.comment_set.all()
+        context = {
+            'form':form,
+            'comments':comments,
+        }
+        return render(request, 'photo/detail.html', context)
 
-#     else:
-#         form = CommentForm()
-#     context = {
-#         'form':form
-#     }
-#     return render(request, 'photo/detail.html', context)
 
-
-
+@login_required(login_url='accounts:login')
 def commentUpdate(request, comment_id):
     '''
     댓글 수정
@@ -173,8 +181,11 @@ def commentUpdate(request, comment_id):
     return render(request, 'photo/comment/comment_update.html', context)
 
 
-
+@login_required(login_url='accounts:login')
 def commentDelete(request, comment_id):
+    '''
+    댓글 삭제
+    '''
 
     comment = get_object_or_404(Comment, pk=comment_id)
     photo = get_object_or_404(Photo, pk=comment.photo.id)
