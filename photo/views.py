@@ -123,7 +123,7 @@ def photoDelete(request, photo_id):
         return redirect('photo:detail', photo_id=photo.id)
 
     photo.delete()
-    return redirect('photo:index')
+    return redirect('photo:list')
 
 
 @login_required(login_url='accounts:login')
