@@ -199,3 +199,23 @@ def commentDelete(request, comment_id):
         return redirect('photo:detail', photo_id=photo.id)
     else:
         return render(request, 'photo/comment/comment_delete.html', {'comment':comment})
+
+
+
+
+
+# ===========================================================================================
+# 좋아요!
+
+def likePhoto(request, photo_id):
+    photo = get_object_or_404(Photo, pk=photo_id)
+
+    # 좋아요 취소
+    if request.user in photo.liked.all():
+        photo.liked.remove(request.user)
+    
+    # 좋아요~
+    else:
+        photo.liked.add(request.user)
+
+    return redirect('photo:list')
