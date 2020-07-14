@@ -11,13 +11,13 @@
     <p><img src='{{photo.photo.url}}' style='width:100%;'></p>
 
     <!--좋아요-->
-    <a href="{%url 'photo:like' photo.id%}">
-        {% if user in photo.liked.all %}
-            <a href="{%url 'photo:like' photo.id%}"><i class="fas fa-heart fa-3x"></i></a>
-        {% else %}
-            <a href="{%url 'photo:like' photo.id%}"><i class="far fa-heart fa-3x"></i></a>
-        {% endif %}
-    </a>
+    
+    {% if user in photo.liked.all %}
+        <a href="{%url 'photo:like' photo.id%}"><i class="fas fa-heart fa-3x"></i></a>
+    {% else %}
+        <a href="{%url 'photo:like' photo.id%}"><i class="far fa-heart fa-3x"></i></a>
+    {% endif %}
+   
     <p class="card-text">
         <!--좋아요 갯수 카운트-->
         {{photo.liked.count}}명이 좋아합니다.
