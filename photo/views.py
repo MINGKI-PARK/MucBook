@@ -7,6 +7,8 @@ from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
 
+from urllib.parse import urlparse
+
 
 
 def photoList(request):
@@ -207,6 +209,7 @@ def commentDelete(request, comment_id):
 # ===========================================================================================
 # 좋아요!
 
+@login_required(login_url='accounts:login')
 def likePhoto(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
 
@@ -218,4 +221,6 @@ def likePhoto(request, photo_id):
     else:
         photo.liked.add(request.user)
 
-    return redirect('photo:list')
+    referer_url = request.META.get('HTTP_REFERER')
+    path = urlparse(referer_url).path
+    return redirect(path)
