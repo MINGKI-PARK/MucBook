@@ -4,8 +4,24 @@
 
 {% block content %}
 
-    <p><img src='{{photo.photo.url}}' style='width:100%;'></p>
     <button type='button' class='btn btn-outline-primary btn-sm'>{{photo.author.username}}</button>
+    <p><img src='{{photo.photo.url}}' style='width:100%;'></p>
+
+    <!--좋아요-->
+  
+    {% if user in photo.liked.all %}
+        <a href="{%url 'photo:like' photo.id%}"><i class="fas fa-heart fa-3x"></i></a>
+    {% else %}
+        <a href="{%url 'photo:like' photo.id%}"><i class="far fa-heart fa-3x"></i></a>
+    {% endif %}
+  
+    <p class="card-text">
+        <!--좋아요 갯수 카운트-->
+        {{photo.liked.count}}명이 좋아합니다.
+    </p>
+
+
+
     <p>{{photo.text|linebreaksbr}}</p>
 
 

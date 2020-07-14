@@ -22,9 +22,16 @@ urlpatterns = [
     
 
 
+
+    # 댓글~
+
     path('<int:photo_id>/comment/create/', views.commentCreate, name='commentcreate'),
     
     path('comment/<int:comment_id>/update/', views.commentUpdate, name='commentupdate'),
 
     path('comment/<int:comment_id>/delete/', views.commentDelete, name='commentdelete'),
+
+
+    # 좋아요~
+    path('<int:photo_id>/like/', views.likePhoto, name='like'),
 ]

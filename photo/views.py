@@ -7,6 +7,8 @@ from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
 
+from urllib.parse import urlparse
+
 
 
 def photoList(request):
@@ -199,3 +201,26 @@ def commentDelete(request, comment_id):
         return redirect('photo:detail', photo_id=photo.id)
     else:
         return render(request, 'photo/comment/comment_delete.html', {'comment':comment})
+
+
+
+
+
+# ===========================================================================================
+# 좋아요!
+
+@login_required(login_url='accounts:login')
+def likePhoto(request, photo_id):
+    photo = get_object_or_404(Photo, pk=photo_id)
+
+    # 좋아요 취소
+    if request.user in photo.liked.all():
+        photo.liked.remove(request.user)
+    
+    # 좋아요~
+    else:
+        photo.liked.add(request.user)
+
+    referer_url = request.META.get('HTTP_REFERER')
+    path = urlparse(referer_url).path
+    return redirect(path)
