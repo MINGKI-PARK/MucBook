@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'photo.apps.PhotoConfig',
     'accounts.apps.AccountsConfig',
+    'tasty.apps.TastyConfig',
 ]
 
 MIDDLEWARE = [

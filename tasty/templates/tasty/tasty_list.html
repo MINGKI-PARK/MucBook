@@ -1,0 +1,23 @@
+{% extends 'base2.html' %}
+
+{% block title %}tasty list{% endblock title %}
+
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-3 mt-5">
+{% for tasty in tasty_list %}
+    <div class="col mb-4">
+        <div class="card">
+            <img src="{{tasty.photo.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{tasty.name}}</h5>
+                <p class="card-text">{{tasty.text}}</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">{{tasty.category}}</small>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock content %}

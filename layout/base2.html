@@ -27,7 +27,7 @@
                 <li class='nav-item'><a href='#' class='nav-link'>Welcome, {{user.get_username}}</a></li>
                 <li class='nav-item'><a href="{% url 'photo:upload' %}" class='nav-link'>Upload</a></li>
                 <li class='nav-item'><a href="{% url 'accounts:logout' %}" class='nav-link'>Logout</a></li>
-                <li class='nav-item'><a href="{%url 'tasty:tastylist'%}" class='nav-link'>Tasty</a></li>
+                <li class='nav-item'><a href="#" class='nav-link'>Tasty</a></li>
                 <li class='nav-item'><a href="#" class='nav-link'>Archiving</a></li>
 
                 {% else %}
@@ -36,17 +36,11 @@
                 {% endif %}
             </ul>        
         </nav>    
-    </header>
-    <div class='row'>
-        <div class='col-md-2'></div>
-        <div class='col-md-8 panel panel-default'>
+
 
     {% block content %}
     {% endblock content %}
 
-        </div>
-        <div class='col-md-2'></div>    
-    </div>
 
     <footer class='footer' style="text-align:center">
         <p>&copy; 2020 DjangoBug. Powered By django3</p>
