@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +12,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     
     <script src="https://kit.fontawesome.com/cc9484d139.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/basic.css' %}">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
     
     <title>MucBook {% block title %}{% endblock title %}</title>
 </head>
@@ -18,7 +22,7 @@
 <body>
 <div class='container'>
     <header class='header clearfix'>
-        <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+        <nav class='navbar navbar-expand-lg navbar-light' style="background-color: #ff9400;">
             <a class='navbar-brand' href='/'><h1>MucBook</h1></a>
             <ul class='nav'>
                 <li class='nav-item'><a href='/' class='active nav-link'>Home</a></li>
