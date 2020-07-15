@@ -19,7 +19,7 @@ def photoList(request):
     context = {
         'photos':photos
     }
-    return  render(request, 'photo/list.html', context)
+    return  render(request, 'photo/list2.html', context)
 
 
 def photoDetail(request, photo_id):

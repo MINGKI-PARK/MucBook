@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}list{% endblock title %}
+
+{% block content %}
+
+<div class="card-columns mt-5">
+{% for photo in photos %}
+    <div class="card">
+        <div class="card-header">{{photo.author.username}}</div>
+
+        <img src="{{photo.photo.url}}" class="card-img-top" alt="...">
+        
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">{{photo.text|linebreaksbr}}</p>
+
+        </div>    
+        <div class="card-footer">
+            
+            {% if user in photo.liked.all %}
+                <a href="{%url 'photo:like' photo.id%}"><i class="fas fa-heart fa-1x"></i></a>
+            {% else %}
+                <a href="{%url 'photo:like' photo.id%}"><i class="far fa-heart fa-1x"></i></a>
+            {% endif %}
+                     
+            <small class="text-muted">{{photo.liked.count}}명이 좋아합니다.</small>
+        </div>    
+            
+        
+    </div>
+{% endfor %}
+</div>
+
+
+
+{% endblock content %}
